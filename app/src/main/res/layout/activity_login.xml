@@ -7,7 +7,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:padding="20dp"
         tools:context=".ui.main.LoginActivity">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID" />
+
+        <EditText
+            android:id="@+id/emailEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Input your Email"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Password" />
+
+        <EditText
+            android:id="@+id/passwordEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Input Password"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="log in" />
+
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sign up" />
     </LinearLayout>
 </layout>

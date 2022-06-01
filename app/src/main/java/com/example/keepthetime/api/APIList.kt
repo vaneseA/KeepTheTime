@@ -1,14 +1,23 @@
 package com.example.keepthetime.api
 
+import android.provider.ContactsContract
 import com.example.keepthetime.models.BasicResponse
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface APIList {
 
 
     //    User
+    @FormUrlEncoded
+    @PUT("/user")
+    fun putRequestSignUp(
+        @Field("email") email: String,
+        @Field("password") pw: String,
+        @Field("nick_name") nickname: String,
+    ): Call<BasicResponse>
+
+
     @GET("user/check")
     fun getRequestCheck(
         @Query("type") type: String,

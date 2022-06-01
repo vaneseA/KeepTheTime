@@ -1,4 +1,7 @@
 package com.example.keepthetime.models
 
-class DataResponse {
+class DataResponse(
+    val user: UserData,
+    val token: String,
+) {
 }

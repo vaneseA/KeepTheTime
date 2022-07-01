@@ -1,12 +1,10 @@
 package com.example.keepthetime.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.keepthetime.BaseActivity
-import com.example.keepthetime.MainActivity
 import com.example.keepthetime.R
 import com.example.keepthetime.databinding.ActivityLoginBinding
 import com.example.keepthetime.models.BasicResponse

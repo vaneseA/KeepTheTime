@@ -1,11 +1,11 @@
-package com.example.keepthetime
+package com.example.keepthetime.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.keepthetime.BaseActivity
+import com.example.keepthetime.R
 import com.example.keepthetime.databinding.ActivityMainBinding
-import com.example.keepthetime.ui.main.LoginActivity
 
 class MainActivity : BaseActivity() {
 

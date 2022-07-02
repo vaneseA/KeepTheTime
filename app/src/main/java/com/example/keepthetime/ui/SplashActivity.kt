@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
 import com.example.keepthetime.BaseActivity
 import com.example.keepthetime.R
 import com.example.keepthetime.models.BasicResponse
@@ -30,21 +31,25 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
-        apiList.getRequestMyInfo(ContextUtil.getLoginToken(mContext)).enqueue(object : Callback<BasicResponse>{
-            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-                if (response.isSuccessful) {
-                    val br = response.body()!!
+        apiList.getRequestMyInfo(ContextUtil.getLoginToken(mContext))
+            .enqueue(object : Callback<BasicResponse> {
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val br = response.body()!!
 
-                    isTokenOk = true
-                    GlobalData.loginUser = br.data.user
-                    //서버에서 주는 응답 확인 필수
+                        isTokenOk = true
+                        GlobalData.loginUser = br.data.user
+                        //서버에서 주는 응답 확인 필수
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
     }
 
     override fun setValues() {
@@ -54,10 +59,14 @@ class SplashActivity : BaseActivity() {
 
             val myIntent: Intent
 
-            if(isTokenOk && ContextUtil.getAutoLogin(mContext)){
+            if (isTokenOk && ContextUtil.getAutoLogin(mContext)) {
+
+                Toast.makeText(
+                    mContext, "${GlobalData.loginUser!!.nick_name}님 환영합니다",
+                    Toast.LENGTH_SHORT
+                ).show()
                 myIntent = Intent(mContext, MainActivity::class.java)
-            }
-            else{
+            } else {
                 myIntent = Intent(mContext, LoginActivity::class.java)
 
             }

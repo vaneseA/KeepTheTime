@@ -95,7 +95,7 @@ class SignUpActivity : BaseActivity() {
                 if (response.isSuccessful) {
                     val br = response.body()!!
                     Toast.makeText(
-                        mContext, "${br.data.user.nick_name}님 가입을 환영합니다.",
+                        mContext, "${br.data.user.nickname}님 가입을 환영합니다.",
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()

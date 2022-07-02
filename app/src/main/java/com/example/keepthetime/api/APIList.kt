@@ -10,7 +10,8 @@ interface APIList {
 
     //    User
     @GET("/user")
-    fun getRequestMyInfo(@Header("X-Http-Token") token : String) : Call<BasicResponse>
+//    fun getRequestMyInfo(@Header("X-Http-Token") token : String) : Call<BasicResponse>
+    fun getRequestMyInfo() : Call<BasicResponse>
 
 
     @FormUrlEncoded

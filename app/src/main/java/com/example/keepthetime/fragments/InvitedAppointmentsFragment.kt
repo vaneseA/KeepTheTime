@@ -6,18 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.keepthetime.R
-import com.example.keepthetime.databinding.FragmentMyAppointmentsBinding
-
-class MyAppointmentsFragment : BaseFragment() {
+import com.example.keepthetime.databinding.FragmentInvitedAppointmentsBinding
 
 
-    lateinit var binding : FragmentMyAppointmentsBinding
+class InvitedAppointmentsFragment : BaseFragment() {
+
+
+    lateinit var binding : FragmentInvitedAppointmentsBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_appointments,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_invited_appointments,container,false)
         return  binding.root
     }
 

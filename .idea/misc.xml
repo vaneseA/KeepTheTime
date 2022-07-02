@@ -11,6 +11,8 @@
         <entry key="app/src/main/res/layout/custom_alert_dialog.xml" value="0.2171875" />
         <entry key="app/src/main/res/layout/fragment_invited_appointments.xml" value="0.21822916666666667" />
         <entry key="app/src/main/res/layout/fragment_my_appointments.xml" value="0.2171875" />
+        <entry key="app/src/main/res/layout/fragment_my_friends_list.xml" value="0.40260416666666665" />
+        <entry key="app/src/main/res/layout/fragment_request_friends_list.xml" value="0.2171875" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.21822916666666667" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2171875" />
       </map>

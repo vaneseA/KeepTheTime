@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.203125" />
+        <entry key="app/src/main/res/layout/custom_alert_dialog.xml" value="0.2171875" />
         <entry key="app/src/main/res/layout/fragment_invited_appointments.xml" value="0.21822916666666667" />
         <entry key="app/src/main/res/layout/fragment_my_appointments.xml" value="0.2171875" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.21822916666666667" />

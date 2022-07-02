@@ -3,16 +3,24 @@ package com.example.keepthetime.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.example.keepthetime.R
 import com.example.keepthetime.databinding.FragmentSettingsBinding
 import com.example.keepthetime.dialogs.CustomAlertDialog
+import com.example.keepthetime.models.BasicResponse
 import com.example.keepthetime.ui.main.LoginActivity
 import com.example.keepthetime.utils.ContextUtil
 import com.example.keepthetime.utils.GlobalData
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SettingsFragment : BaseFragment() {
 
@@ -40,11 +48,97 @@ class SettingsFragment : BaseFragment() {
         }
 //        닉네임 변경 이벤트
         binding.changeNickLayout.setOnClickListener {
+            val alert = CustomAlertDialog(mContext, requireActivity())
+            alert.myDialog()
+            alert.binding.titleTxt.text = "Change Nickname"
+            alert.binding.bodyTxt.visibility = View.GONE
+            alert.binding.contentEdt.hint = "Insert Nickname for changing"
+            alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_TEXT
 
+            alert.binding.confirmBtn.setOnClickListener {
+                apiList.patchRequestEditUserInfo(
+                    "nickname",
+                    alert.binding.contentEdt.text.toString()
+                ).enqueue(object : Callback<BasicResponse> {
+                    override fun onResponse(
+                        call: Call<BasicResponse>,
+                        response: Response<BasicResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            val br = response.body()!!
+
+                            GlobalData.loginUser = br.data.user
+
+//                            binding.nickNameTxt.text = br.data.user.nickname
+                            setUserData()
+
+                            alert.dialog.dismiss()
+                        }
+//                        중복된 닉네임과 같은 문제가 발생
+                        else {
+                            val errorBodyStr = response.errorBody()!!.string()
+                            val jsonObj = JSONObject(errorBodyStr)
+                            val message = jsonObj.getString("message")
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                    }
+                })
+            }
+            alert.binding.cancelBtn.setOnClickListener {
+                alert.dialog.dismiss()
+            }
+
+//            apiList.patchRequestEditUserInfo()
         }
 //        외출 준비 시간 변경 이벤트
         binding.readyTimeLayout.setOnClickListener {
+            val alert = CustomAlertDialog(mContext, requireActivity())
+            alert.myDialog()
+            alert.binding.titleTxt.text = "Set time up for ready"
+            alert.binding.bodyTxt.visibility = View.GONE
+            alert.binding.contentEdt.hint = "How many time do you take for ready?"
+            alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_NUMBER
 
+            alert.binding.confirmBtn.setOnClickListener {
+                apiList.patchRequestEditUserInfo(
+                    "ready_minute",
+                    alert.binding.contentEdt.text.toString()
+                ).enqueue(object : Callback<BasicResponse> {
+                    override fun onResponse(
+                        call: Call<BasicResponse>,
+                        response: Response<BasicResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            val br = response.body()!!
+
+                            GlobalData.loginUser = br.data.user
+
+//                            binding.nickNameTxt.text = br.data.user.nickname
+                            setUserData()
+
+                            alert.dialog.dismiss()
+                        }
+//                        중복된 닉네임과 같은 문제가 발생
+                        else {
+                            val errorBodyStr = response.errorBody()!!.string()
+                            val jsonObj = JSONObject(errorBodyStr)
+                            val message = jsonObj.getString("message")
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                    }
+                })
+            }
+            alert.binding.cancelBtn.setOnClickListener {
+                alert.dialog.dismiss()
+            }
         }
 //        비밀번호 변경
         binding.changePwLayout.setOnClickListener {
@@ -89,6 +183,24 @@ class SettingsFragment : BaseFragment() {
     }
 
     override fun setValues() {
+        setUserData()
+
+        when (GlobalData.loginUser!!.provider) {
+            "kakao" -> {}
+            "facebook" -> {}
+            else -> binding.socialLoginImg.visibility = View.GONE
+        }
+    }
+
+    fun setUserData() {
+        Glide.with(mContext)
+            .load(GlobalData.loginUser!!.profileImg)
+            .into(binding.profileImg)
+
+        binding.nickNameTxt.text = GlobalData.loginUser!!.nickname
+
+//        [연습문제] if 준비시간이 1시간이 넘을 경우 -> x시간 x분으로 나타내보자.
+        binding.readyTimeTxt.text = "${GlobalData.loginUser!!.readyMinute} minute"
 
     }
 }

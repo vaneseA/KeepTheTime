@@ -13,6 +13,12 @@ interface APIList {
 //    fun getRequestMyInfo(@Header("X-Http-Token") token : String) : Call<BasicResponse>
     fun getRequestMyInfo() : Call<BasicResponse>
 
+    @FormUrlEncoded
+    @PATCH("/user")
+    fun patchRequestEditUserInfo(
+        @Field("field") field: String,
+        @Field("value") value: String,
+    ): Call<BasicResponse>
 
     @FormUrlEncoded
     @POST("/user")

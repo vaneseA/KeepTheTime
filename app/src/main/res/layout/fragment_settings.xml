@@ -24,6 +24,7 @@
 
             <LinearLayout
                 android:id="@+id/changeNickLayout"
+                android:tag="nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -34,13 +35,13 @@
                     android:id="@+id/socialLoginImg"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginEnd="5dp"
                     android:src="@mipmap/ic_launcher" />
 
                 <TextView
                     android:id="@+id/nickNameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:text="Nick Name" />
 
                 <ImageView
@@ -61,6 +62,7 @@
 
         <LinearLayout
             android:id="@+id/readyTimeLayout"
+            android:tag="ready_minute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"

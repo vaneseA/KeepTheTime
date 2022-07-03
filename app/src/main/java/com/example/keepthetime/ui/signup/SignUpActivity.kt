@@ -123,7 +123,7 @@ class SignUpActivity : BaseActivity() {
     }
 
     fun dupCheck(type: String, value: String) {
-        apiList.getRequestCheck(type, value).enqueue(object : Callback<BasicResponse> {
+        apiList.getRequestUserCheck(type, value).enqueue(object : Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if (response.isSuccessful) {
                     val br = response.body()!!

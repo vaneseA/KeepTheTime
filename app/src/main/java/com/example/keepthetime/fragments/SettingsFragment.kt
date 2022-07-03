@@ -64,6 +64,7 @@ class SettingsFragment : BaseFragment() {
 //            갤러리로 사진을 가지러 이동(추가작업) => Intent (4)
                     myIntent.action = Intent.ACTION_PICK
                     myIntent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
+
                     startForResult.launch(myIntent)
                 }
 
@@ -302,7 +303,6 @@ class SettingsFragment : BaseFragment() {
         Glide.with(mContext)
             .load(GlobalData.loginUser!!.profileImg)
             .into(binding.profileImg)
-
         binding.nickNameTxt.text = GlobalData.loginUser!!.nickname
 
 //        [연습문제] if 준비시간이 1시간이 넘을 경우 -> x시간 x분으로 나타내보자.
@@ -310,8 +310,7 @@ class SettingsFragment : BaseFragment() {
 
     }
 
-    val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
 //            어떤 사진을 골랐는지 파악해보자
 //            임시 : 고른 사진을 profileImg에 바로 적용만 (서버전송 X)
@@ -331,8 +330,7 @@ class SettingsFragment : BaseFragment() {
 
 //            파일을 retrofit에 첨부할 수 있는 => RequestBody => MultipartBody 형태로 변환
                 val fileReqBody = RequestBody.create(MediaType.get("image/*"), file)
-                val body =
-                    MultipartBody.Part.createFormData("profile_image", "myFile.jpg", fileReqBody)
+                val body = MultipartBody.Part.createFormData("profile_image", "myFile.jpg", fileReqBody)
 
                 apiList.putRequestUserImage(body).enqueue(object : Callback<BasicResponse> {
                     override fun onResponse(

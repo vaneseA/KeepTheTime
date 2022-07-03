@@ -1,25 +1,31 @@
 package com.example.keepthetime.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.keepthetime.R
 import com.example.keepthetime.databinding.ListItemUserBinding
 import com.example.keepthetime.models.UserData
 
 class MyFriendsRecyclerAdapter(
     val mContext: Context,
-    val mList : List<UserData>
-) : RecyclerView.Adapter<MyFriendsRecyclerAdapter.ItemViewHolder>(){
+    val mList: List<UserData>
+) : RecyclerView.Adapter<MyFriendsRecyclerAdapter.ItemViewHolder>() {
 
     lateinit var binding: ListItemUserBinding
 
-    inner class ItemViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        fun bind (item : UserData) {
-
+    inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(item: UserData) {
+            Glide.with(mContext).load(item.profileImg).into(binding.profileImg)
+            binding.nickNameTxt.text = item.nickname
+            binding.addFriendBtn.setOnClickListener {
+                Log.d("선택한 목록", item.nickname)
+            }
         }
     }
 
@@ -27,9 +33,10 @@ class MyFriendsRecyclerAdapter(
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(mContext),
             R.layout.list_item_user,
-            parent,false
+            parent,
+            false
         )
-        return  ItemViewHolder(binding.root)
+        return ItemViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -37,7 +44,7 @@ class MyFriendsRecyclerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return  mList.size
+        return mList.size
     }
 
 }

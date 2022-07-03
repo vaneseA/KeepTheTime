@@ -1,7 +1,5 @@
 package com.example.keepthetime.api
 
-import android.provider.ContactsContract
-import android.security.identity.AccessControlProfile
 import com.example.keepthetime.models.BasicResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -9,11 +7,14 @@ import retrofit2.http.*
 
 interface APIList {
 
+    //     search
+    @GET("/search/user")
+    fun getRequestSearchUser(@Query("nickname") nickname: String): Call<BasicResponse>
 
-    //    User
+    //        User
     @GET("/user")
 //    fun getRequestMyInfo(@Header("X-Http-Token") token : String) : Call<BasicResponse>
-    fun getRequestMyInfo() : Call<BasicResponse>
+    fun getRequestMyInfo(): Call<BasicResponse>
 
     @FormUrlEncoded
     @PATCH("/user")
@@ -39,12 +40,12 @@ interface APIList {
 
 
     @GET("user/check")
-    fun getRequestCheck(
+    fun getRequestUserCheck(
         @Query("type") type: String,
         @Query("value") value: String,
     ): Call<BasicResponse>
 
     @Multipart
     @PUT("/user/image")
-    fun putRequestUserImage(@Part profileImg : MultipartBody.Part) : Call<BasicResponse>
+    fun putRequestUserImage(@Part profileImg: MultipartBody.Part): Call<BasicResponse>
 }

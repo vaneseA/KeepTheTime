@@ -2,6 +2,7 @@ package com.example.keepthetime.ui.settings
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.keepthetime.BaseActivity
 import com.example.keepthetime.R
@@ -27,6 +28,10 @@ class MyFriendsActivity : BaseActivity() {
     }
 
     override fun setValues() {
+        titleTxt.text = "List of friend"
+        addBtn.visibility = View.VISIBLE
+
+
         mFriendsPagerAdapter = FriendViewPagerAdapter(this)
         binding.friendListViewPager.adapter = mFriendsPagerAdapter
 

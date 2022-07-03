@@ -32,6 +32,8 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
+        titleTxt.text = "Appointments"
+
         mPagerAdapter = MainViewPagerAdapter(this)
         binding.mainViewPager.adapter = mPagerAdapter
 
@@ -40,6 +42,11 @@ class MainActivity : BaseActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 binding.bottomNav.menu.getItem(position).isChecked = true
+                titleTxt.text = when (position){
+                    0-> "Appointments"
+                    1-> "Invited Appointments"
+                    else-> "Settings"
+                }
             }
         })
         binding.bottomNav.setOnItemSelectedListener {

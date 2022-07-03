@@ -19,7 +19,12 @@ class RequestFriendsListFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =DataBindingUtil.inflate(inflater, R.layout.fragment_request_friends_list,container,false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_request_friends_list,
+            container,
+            false
+        )
         return binding.root
     }
 

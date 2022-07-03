@@ -118,7 +118,7 @@ class SignUpActivity : BaseActivity() {
 
             }
         })
-
+//ㄴㄴ
         Toast.makeText(mContext, "회원가입", Toast.LENGTH_SHORT).show()
     }
 

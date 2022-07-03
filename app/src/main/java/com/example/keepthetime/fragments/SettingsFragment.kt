@@ -18,6 +18,7 @@ import com.example.keepthetime.databinding.FragmentSettingsBinding
 import com.example.keepthetime.dialogs.CustomAlertDialog
 import com.example.keepthetime.models.BasicResponse
 import com.example.keepthetime.ui.main.LoginActivity
+import com.example.keepthetime.ui.settings.MyFriendsActivity
 import com.example.keepthetime.utils.ContextUtil
 import com.example.keepthetime.utils.GlobalData
 import com.example.keepthetime.utils.URIPathHelper
@@ -254,7 +255,8 @@ class SettingsFragment : BaseFragment() {
         }
 //        친구 목록 관리 이벤트
         binding.myFriendsLayout.setOnClickListener {
-
+            val myIntent = Intent(mContext, MyFriendsActivity::class.java)
+            startActivity(myIntent)
         }
 //        로그아웃
         binding.logoutLayout.setOnClickListener {
@@ -312,7 +314,7 @@ class SettingsFragment : BaseFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
 //            어떤 사진을 골랐는지 파악해보자
-//            임시 : 골,ㄴ 사진을 profileImg에 바로 적용만 (서버전송 X)
+//            임시 : 고른 사진을 profileImg에 바로 적용만 (서버전송 X)
 
 //            data? => 이전 화면이 넘겨준 intent
 //            data?.data => 선택한 사진이 들어있는 경로 정보 (Uri)

@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.keepthetime.R
+import com.example.keepthetime.databinding.FragmentRequestFriendsListBinding
 import com.example.keepthetime.databinding.FragmentSettingsBinding
 
 class RequestFriendsListFragment : BaseFragment() {
 
-    lateinit var binding: FragmentSettingsBinding
+    lateinit var binding: FragmentRequestFriendsListBinding
+//    lateinit var binding: FragmentSettingsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,

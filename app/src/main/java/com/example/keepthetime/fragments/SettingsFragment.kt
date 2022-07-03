@@ -19,6 +19,7 @@ import com.example.keepthetime.dialogs.CustomAlertDialog
 import com.example.keepthetime.models.BasicResponse
 import com.example.keepthetime.ui.main.LoginActivity
 import com.example.keepthetime.ui.settings.MyFriendsActivity
+import com.example.keepthetime.ui.settings.MyPlaceListActivity
 import com.example.keepthetime.utils.ContextUtil
 import com.example.keepthetime.utils.GlobalData
 import com.example.keepthetime.utils.URIPathHelper
@@ -252,6 +253,8 @@ class SettingsFragment : BaseFragment() {
         }
 //        출발 장소 변경 이벤트
         binding.myLocationLayout.setOnClickListener {
+            val myIntent = Intent(mContext, MyPlaceListActivity::class.java)
+            startActivity(myIntent)
 
         }
 //        친구 목록 관리 이벤트

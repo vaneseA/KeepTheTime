@@ -17,6 +17,9 @@
         android:theme="@style/Theme.KeepTheTime"
         tools:targetApi="31">
         <activity
+            android:name=".ui.settings.MyPlaceListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.settings.MyFriendsActivity"
             android:exported="false" />
         <activity

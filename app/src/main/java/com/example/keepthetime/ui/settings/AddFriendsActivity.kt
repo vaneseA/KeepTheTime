@@ -49,7 +49,7 @@ class AddFriendsActivity : BaseActivity() {
                         val br = response.body()!!
 
 //                        어댑터의 아이템들을모두 삭제한 두;ㅣ
-                        mFriendAdapter.notifyItemRangeInserted(0, mFriendList.size)
+//                        mFriendAdapter.notifyItemRangeInserted(0, mFriendList.size)
 
 //                        리스트를 전면 삭제하고
                         mFriendList.clear()
@@ -75,7 +75,7 @@ class AddFriendsActivity : BaseActivity() {
 
     override fun setValues() {
 //        1. 어댑터 초기화 (init) => 빈 껍데기로
-        mFriendAdapter = MyFriendsRecyclerAdapter(mContext, mFriendList)
+        mFriendAdapter = MyFriendsRecyclerAdapter(mContext, mFriendList, "add")
         binding.findUserRecyclerView.adapter = mFriendAdapter
         binding.findUserRecyclerView.layoutManager = LinearLayoutManager(mContext)
     }

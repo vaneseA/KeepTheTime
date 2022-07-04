@@ -7,3 +7,5 @@ class DataResponse(
     val places : List<PlaceData>
 ) {
 }
+
+//gittest

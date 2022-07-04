@@ -5,38 +5,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <de.hdodenhof.circleimageview.CircleImageView
+        android:orientation="horizontal"
+        android:padding="10dp">
 
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImg"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@mipmap/ic_launcher"
-            app:civ_border_width="2dp"/>
+            app:civ_border_width="2dp" />
 
         <TextView
             android:id="@+id/nickNameTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textSize="16sp"
-            android:text="닉네임 자리"/>
+            android:text="닉네임 자리"
+            android:textSize="16sp" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/requestBtnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/acceptBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="수락"
+                android:text="수락" />
+
+            <Button
+                android:id="@+id/denyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:tag="거절"
+                android:text="거절" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/addFriendBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="친구 요청"/>
+            android:visibility="gone"
+            android:text="친구 요청" />
 
     </LinearLayout>
-
 
 </layout>
 

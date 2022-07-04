@@ -49,7 +49,7 @@ class MyPlaceListActivity : BaseActivity() {
         mPlaceRecycleAdapter = PlaceRecyclerAdapter(mContext, mPlaceList)
         binding.myPlaceRecyclerView.adapter = mPlaceRecycleAdapter
         binding.myPlaceRecyclerView.layoutManager = LinearLayoutManager(mContext)
-
+//s
     }
     fun getMyPlaceListFromServer(){
         apiList.getRequestMyPlace().enqueue(object : Callback<BasicResponse>{

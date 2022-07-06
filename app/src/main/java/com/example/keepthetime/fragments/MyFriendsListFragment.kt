@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.keepthetime.R
 import com.example.keepthetime.adapters.MyFriendsRecyclerAdapter
 import com.example.keepthetime.databinding.FragmentMyFriendsListBinding
@@ -17,9 +18,9 @@ import retrofit2.Response
 
 class MyFriendsListFragment : BaseFragment() {
 
-    lateinit var binding: FragmentMyFriendsListBinding
+    lateinit var binding : FragmentMyFriendsListBinding
 
-    lateinit var mFriendAdaper : MyFriendsRecyclerAdapter
+    lateinit var mFriendAdapter : MyFriendsRecyclerAdapter
     var mFriendList = ArrayList<UserData>()
 
     override fun onCreateView(
@@ -27,10 +28,10 @@ class MyFriendsListFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_my_friends_list, container, false
-        )
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_my_friends_list,
+            container,
+            false)
         return binding.root
     }
 
@@ -40,20 +41,30 @@ class MyFriendsListFragment : BaseFragment() {
         setValues()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getMyFriendsListFromServer()
+    }
+
     override fun setupEvents() {
 
     }
 
     override fun setValues() {
-
+        mFriendAdapter = MyFriendsRecyclerAdapter(mContext, mFriendList, "my")
+        binding.myFriendsRecyclerView.adapter = mFriendAdapter
+        binding.myFriendsRecyclerView.layoutManager = LinearLayoutManager(mContext)
     }
-    fun  getMyFriendsLsitFromServer() {
+
+    fun getMyFriendsListFromServer() {
         apiList.getRequestMyFriendsList("my").enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if (response.isSuccessful) {
-                    val  br = response.body()!!
+                    val br = response.body()!!
+
                     mFriendList.clear()
                     mFriendList.addAll(br.data.friends)
+                    mFriendAdapter.notifyDataSetChanged()
                 }
             }
 
@@ -62,4 +73,5 @@ class MyFriendsListFragment : BaseFragment() {
             }
         })
     }
+
 }

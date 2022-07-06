@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.keepthetime.R
 import com.example.keepthetime.api.APIList
 import com.example.keepthetime.api.ServerApi
-import com.example.keepthetime.databinding.ListItemUserBinding
+import com.example.keepthetime.fragments.RequestFriendsListFragment
 import com.example.keepthetime.models.BasicResponse
 import com.example.keepthetime.models.UserData
+import com.example.keepthetime.ui.settings.MyFriendsActivity
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +29,7 @@ class MyFriendsRecyclerAdapter(
     inner class ItemViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 
         val profileImg = view.findViewById<ImageView>(R.id.profileImg)
-        val nicknameTxt = view.findViewById<TextView>(R.id.nickNameTxt)
+        val nicknameTxt = view.findViewById<TextView>(R.id.nicknameTxt)
         val addFriendBtn = view.findViewById<Button>(R.id.addFriendBtn)
         val acceptBtn = view.findViewById<Button>(R.id.acceptBtn)
         val denyBtn = view.findViewById<Button>(R.id.denyBtn)
@@ -47,7 +47,7 @@ class MyFriendsRecyclerAdapter(
                     addFriendBtn.visibility = View.VISIBLE
                     requestBtnLayout.visibility = View.GONE
                 }
-                "request" -> {
+                "requested" -> {
                     addFriendBtn.visibility = View.GONE
                     requestBtnLayout.visibility = View.VISIBLE
                 }
@@ -66,8 +66,7 @@ class MyFriendsRecyclerAdapter(
 
 //                    어댑터에서 API 서비스 사용법
 //                    1. 직접 만들자
-                    apiList.putRequestAnswerRequest(item.id, okOrNO).enqueue(object :
-                        Callback<BasicResponse> {
+                    apiList.putRequestAnswerRequest(item.id, okOrNO).enqueue(object : Callback<BasicResponse>{
                         override fun onResponse(
                             call: Call<BasicResponse>,
                             response: Response<BasicResponse>
@@ -79,6 +78,17 @@ class MyFriendsRecyclerAdapter(
 
                                 Log.e("승인_거절 실패", message)
                             }
+
+//                            프래그먼트의 요청목록(requested Friends List) 새로 받아오는 함수를 실행?
+//                            어댑터 -> 액티비티 : context 변수 활용
+
+
+//                            ViewPager2에서 fragment를 찾아서 새로 받아오는 함수를 실행
+//                            ViewPager2에서는 내부의 fragment를 지정할 수 없다. => tag 값으로 찾아온다.
+                            ((mContext as MyFriendsActivity)
+                                .supportFragmentManager
+                                .findFragmentByTag("f1") as RequestFriendsListFragment)
+                                .getRequestedFriendsListFromServer()
                         }
 
                         override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
@@ -92,7 +102,7 @@ class MyFriendsRecyclerAdapter(
             denyBtn.setOnClickListener(ocl)
 
             addFriendBtn.setOnClickListener {
-                apiList.postRequestAddFriend(item.id).enqueue(object : Callback<BasicResponse> {
+                apiList.postRequestAddFriend(item.id).enqueue(object : Callback<BasicResponse>{
                     override fun onResponse(
                         call: Call<BasicResponse>,
                         response: Response<BasicResponse>

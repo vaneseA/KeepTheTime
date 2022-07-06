@@ -36,8 +36,8 @@ import java.io.File
 
 class SettingsFragment : BaseFragment() {
 
+    lateinit var binding : FragmentSettingsBinding
 
-    lateinit var binding: FragmentSettingsBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,14 +54,15 @@ class SettingsFragment : BaseFragment() {
     }
 
     override fun setupEvents() {
-//        프로필 이미지 변경
+//        프로필 이미지 변경 이벤트
         binding.profileImg.setOnClickListener {
-//            갤러리를 개발자가 이용 : 유저에게 허락을 받아야한다 => 권한 세팅
+//            갤러리를 개발자가 이용 : 유저 허락을 받아야한다. => 권한 세팅
 //            TedPermission 라이브러리
             val pl = object : PermissionListener {
                 override fun onPermissionGranted() {
-//                    권한 OK
+//                  권한 Ok
                     val myIntent = Intent()
+
 //            갤러리로 사진을 가지러 이동(추가작업) => Intent (4)
                     myIntent.action = Intent.ACTION_PICK
                     myIntent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE
@@ -70,8 +71,8 @@ class SettingsFragment : BaseFragment() {
                 }
 
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-//                    권한 Denied
-//                    Toast.makeText(mContext,"권한이 거부되어 갤러리 접근이 불가", Toast.LENGTH_SHORT).show()
+//                    권한이 Denied
+//                    Toast.makeText(mContext, "권한이 거부되어 갤러리 접근이 불가합니다.", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -85,20 +86,22 @@ class SettingsFragment : BaseFragment() {
                 .check()
 
         }
+
 ////        닉네임 변경 이벤트
 //        binding.changeNickLayout.setOnClickListener {
 //            val alert = CustomAlertDialog(mContext, requireActivity())
 //            alert.myDialog()
-//            alert.binding.titleTxt.text = "Change Nickname"
+//
+//            alert.binding.titleTxt.text = "닉네임 변경"
 //            alert.binding.bodyTxt.visibility = View.GONE
-//            alert.binding.contentEdt.hint = "Insert Nickname for changing"
+//            alert.binding.contentEdt.hint = "변경할 닉네임을 입력해주세요."
 //            alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_TEXT
 //
-//            alert.binding.confirmBtn.setOnClickListener {
+//            alert.binding.positiveBtn.setOnClickListener {
 //                apiList.patchRequestEditUserInfo(
 //                    "nickname",
 //                    alert.binding.contentEdt.text.toString()
-//                ).enqueue(object : Callback<BasicResponse> {
+//                ).enqueue(object : Callback<BasicResponse>{
 //                    override fun onResponse(
 //                        call: Call<BasicResponse>,
 //                        response: Response<BasicResponse>
@@ -108,16 +111,16 @@ class SettingsFragment : BaseFragment() {
 //
 //                            GlobalData.loginUser = br.data.user
 //
-////                            binding.nickNameTxt.text = br.data.user.nickname
 //                            setUserData()
 //
 //                            alert.dialog.dismiss()
 //                        }
-////                        중복된 닉네임과 같은 문제가 발생
+////                        뭔가 중복된 닉네임과 같은 문제가 발생
 //                        else {
 //                            val errorBodyStr = response.errorBody()!!.string()
 //                            val jsonObj = JSONObject(errorBodyStr)
 //                            val message = jsonObj.getString("message")
+//
 //                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
 //                        }
 //                    }
@@ -127,26 +130,27 @@ class SettingsFragment : BaseFragment() {
 //                    }
 //                })
 //            }
-//            alert.binding.cancelBtn.setOnClickListener {
+//            alert.binding.negativeBtn.setOnClickListener {
 //                alert.dialog.dismiss()
 //            }
 //
-////            apiList.patchRequestEditUserInfo()
 //        }
+//
 ////        외출 준비 시간 변경 이벤트
 //        binding.readyTimeLayout.setOnClickListener {
 //            val alert = CustomAlertDialog(mContext, requireActivity())
 //            alert.myDialog()
-//            alert.binding.titleTxt.text = "Set time up for ready"
+//
+//            alert.binding.titleTxt.text = "준비 시간 설정"
 //            alert.binding.bodyTxt.visibility = View.GONE
-//            alert.binding.contentEdt.hint = "How many time do you take for ready?"
+//            alert.binding.contentEdt.hint = "외출 준비에 몇 분 걸리는지"
 //            alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_NUMBER
 //
-//            alert.binding.confirmBtn.setOnClickListener {
+//            alert.binding.positiveBtn.setOnClickListener {
 //                apiList.patchRequestEditUserInfo(
 //                    "ready_minute",
 //                    alert.binding.contentEdt.text.toString()
-//                ).enqueue(object : Callback<BasicResponse> {
+//                ).enqueue(object : Callback<BasicResponse>{
 //                    override fun onResponse(
 //                        call: Call<BasicResponse>,
 //                        response: Response<BasicResponse>
@@ -156,16 +160,16 @@ class SettingsFragment : BaseFragment() {
 //
 //                            GlobalData.loginUser = br.data.user
 //
-////                            binding.nickNameTxt.text = br.data.user.nickname
 //                            setUserData()
 //
 //                            alert.dialog.dismiss()
 //                        }
-////                        중복된 닉네임과 같은 문제가 발생
+////                        뭔가 중복된 닉네임과 같은 문제가 발생
 //                        else {
 //                            val errorBodyStr = response.errorBody()!!.string()
 //                            val jsonObj = JSONObject(errorBodyStr)
 //                            val message = jsonObj.getString("message")
+//
 //                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
 //                        }
 //                    }
@@ -175,11 +179,12 @@ class SettingsFragment : BaseFragment() {
 //                    }
 //                })
 //            }
-//            alert.binding.cancelBtn.setOnClickListener {
+//            alert.binding.negativeBtn.setOnClickListener {
 //                alert.dialog.dismiss()
 //            }
 //        }
-        val ocl = object : View.OnClickListener {
+
+        val ocl = object : View.OnClickListener{
             override fun onClick(p0: View?) {
                 val type = p0!!.tag.toString()
 
@@ -188,16 +193,14 @@ class SettingsFragment : BaseFragment() {
 
                 when (type) {
                     "nickname" -> {
-                        alert.binding.titleTxt.text = "Change nickname"
-                        alert.binding.contentEdt.hint = "Input the new nickname"
+                        alert.binding.titleTxt.text = "닉네임 변경"
+                        alert.binding.contentEdt.hint = "변경할 닉네임 입력"
                         alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_TEXT
-
                     }
                     "ready_minute" -> {
-                        alert.binding.titleTxt.text = "Set time up for ready"
-                        alert.binding.contentEdt.hint = "How many time do you take for ready?"
+                        alert.binding.titleTxt.text = "준비 시간 설정"
+                        alert.binding.contentEdt.hint = "외출 준비에 몇 분 걸리는지"
                         alert.binding.contentEdt.inputType = InputType.TYPE_CLASS_NUMBER
-
                     }
                 }
 
@@ -217,16 +220,16 @@ class SettingsFragment : BaseFragment() {
 
                                 GlobalData.loginUser = br.data.user
 
-//                            binding.nickNameTxt.text = br.data.user.nickname
                                 setUserData()
 
                                 alert.dialog.dismiss()
                             }
-//                        중복된 닉네임과 같은 문제가 발생
+//                        뭔가 중복된 닉네임과 같은 문제가 발생
                             else {
                                 val errorBodyStr = response.errorBody()!!.string()
                                 val jsonObj = JSONObject(errorBodyStr)
                                 val message = jsonObj.getString("message")
+
                                 Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
                             }
                         }
@@ -239,57 +242,55 @@ class SettingsFragment : BaseFragment() {
                 alert.binding.cancelBtn.setOnClickListener {
                     alert.dialog.dismiss()
                 }
-
-
             }
         }
 
-
         binding.changeNickLayout.setOnClickListener(ocl)
         binding.readyTimeLayout.setOnClickListener(ocl)
+
 //        비밀번호 변경 이벤트
         binding.changePwLayout.setOnClickListener {
 
         }
+
 //        출발 장소 변경 이벤트
         binding.myLocationLayout.setOnClickListener {
             val myIntent = Intent(mContext, MyPlaceListActivity::class.java)
             startActivity(myIntent)
-
         }
+
 //        친구 목록 관리 이벤트
         binding.myFriendsLayout.setOnClickListener {
             val myIntent = Intent(mContext, MyFriendsActivity::class.java)
             startActivity(myIntent)
         }
+
 //        로그아웃
         binding.logoutLayout.setOnClickListener {
             val alert = CustomAlertDialog(mContext, requireActivity())
             alert.myDialog()
 
-            alert.binding.titleTxt.text = "Log Out"
-            alert.binding.bodyTxt.text = "Do you want to logout?"
+            alert.binding.titleTxt.text = "로그아웃"
+            alert.binding.bodyTxt.text = "정말 로그아웃 하시겠습니까?"
             alert.binding.contentEdt.visibility = View.GONE
             alert.binding.confirmBtn.setOnClickListener {
 //                로그인 토큰 (from ContextUtil)만 제거하고 싶을때 (기본값으로 set하자)
 //                ContextUtil.setLoginToken(mContext, "")
+
                 ContextUtil.clear(mContext)
+
                 GlobalData.loginUser = null
+
                 val myIntent = Intent(mContext, LoginActivity::class.java)
-                myIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-
-//                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK||Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                myIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(myIntent)
+
+                alert.dialog.dismiss()
             }
             alert.binding.cancelBtn.setOnClickListener {
                 alert.dialog.dismiss()
             }
-
-
         }
-
-
     }
 
     override fun setValues() {
@@ -302,60 +303,58 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
-    fun setUserData() {
+    fun setUserData () {
         Glide.with(mContext)
             .load(GlobalData.loginUser!!.profileImg)
             .into(binding.profileImg)
-        binding.nickNameTxt.text = GlobalData.loginUser!!.nickname
+        binding.nicknameTxt.text = GlobalData.loginUser!!.nickname
 
-//        [연습문제] if 준비시간이 1시간이 넘을 경우 -> x시간 x분으로 나타내보자.
-        binding.readyTimeTxt.text = "${GlobalData.loginUser!!.readyMinute} minute"
-
+//        [연습문제] if 준비시간이 1시간이 넘을경우 -> x시간 x분으로 나타내보자.
+        binding.readyTimeTxt.text = "${GlobalData.loginUser!!.readyMinute}분"
     }
 
     val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-//            어떤 사진을 골랐는지 파악해보자
+        if (it.resultCode == Activity.RESULT_OK) {
+//            어떤 사진을 골랏는지? 파악해보자
 //            임시 : 고른 사진을 profileImg에 바로 적용만 (서버전송 X)
 
 //            data? => 이전 화면이 넘겨준 intent
 //            data?.data => 선택한 사진이 들어있는 경로 정보 (Uri)
-                val dataUri = it.data?.data
+            val dataUri = it.data?.data
 
-//            Uri -> 이미지뷰의 사진 (Glide)
+//            Uri -> 이미지뷰의 사진 (GLide)
 //            Glide.with(mContext).load(dataUri).into(binding.profileImg)
 
-//           API 서버에 사진을 전송 => PUT 메쏘드 + ("/user/image")
-//            파일을 같이 첨부해야 => Multipart 형식의 데이터 첨부 활용 (기존 FromData와는 다르다)
+//            API 서버에 사진을 전송 => PUT 메쏘드 + ("/user/image")
+//            파일을 같이 첨부해야 => Multipart 형식의 데이터 첨부 활용 (기존 FromData와는 다르다!!)
 
-//            Uri -> file 형태로 변환 -> 그 파일의 실제 경로를 얻어낼 필요가 있다.
-                val file = File(URIPathHelper().getPath(mContext, dataUri!!))
+//            Uri -> File 형태로 변환 -> 그 파일의 실제 경로를 얻어낼 필요가 있다.
+            val file = File(URIPathHelper().getPath(mContext, dataUri!!))
 
 //            파일을 retrofit에 첨부할 수 있는 => RequestBody => MultipartBody 형태로 변환
-                val fileReqBody = RequestBody.create(MediaType.get("image/*"), file)
-                val body = MultipartBody.Part.createFormData("profile_image", "myFile.jpg", fileReqBody)
+            val fileReqBody = RequestBody.create(MediaType.get("image/*"), file)
+            val body = MultipartBody.Part.createFormData("profile_image", "myFile.jpg", fileReqBody)
 
-                apiList.putRequestUserImage(body).enqueue(object : Callback<BasicResponse> {
-                    override fun onResponse(
-                        call: Call<BasicResponse>,
-                        response: Response<BasicResponse>
-                    ) {
-                        if (response.isSuccessful) {
-//                        1.선택한 이미지로 UI 프사 변경
-                            GlobalData.loginUser = response.body()!!.data.user
+            apiList.putRequestUserImage(body).enqueue(object : Callback<BasicResponse>{
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+                    if (response.isSuccessful) {
+//                        1. 선택한 이미지로 UI 프사 변경
+                        GlobalData.loginUser = response.body()!!.data.user
 
-                            Glide.with(mContext).load(GlobalData.loginUser!!.profileImg)
-                                .into(binding.profileImg)
+                        Glide.with(mContext).load(GlobalData.loginUser!!.profileImg).into(binding.profileImg)
 
-//                        2.토스트로 성공 메세지
-                            Toast.makeText(mContext, "프로필 사진 변경 완료", Toast.LENGTH_SHORT).show()
-                        }
+//                        2. 토스트로 성공 메세지
+                        Toast.makeText(mContext, "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
                     }
+                }
 
-                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
 
-                    }
-                })
-            }
+                }
+            })
         }
+    }
 }

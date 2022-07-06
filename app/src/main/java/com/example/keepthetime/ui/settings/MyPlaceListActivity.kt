@@ -19,7 +19,7 @@ class MyPlaceListActivity : BaseActivity() {
 
     lateinit var binding : ActivityMyPlaceListBinding
 
-    lateinit var mPlaceRecycleAdapter : PlaceRecyclerAdapter
+    lateinit var mPlaceRecyclerAdapter : PlaceRecyclerAdapter
     var mPlaceList = ArrayList<PlaceData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,32 +34,31 @@ class MyPlaceListActivity : BaseActivity() {
         getMyPlaceListFromServer()
     }
 
-
     override fun setupEvents() {
         addBtn.setOnClickListener {
 
         }
-
     }
 
     override fun setValues() {
         titleTxt.text = ""
         addBtn.visibility = View.VISIBLE
 
-        mPlaceRecycleAdapter = PlaceRecyclerAdapter(mContext, mPlaceList)
-        binding.myPlaceRecyclerView.adapter = mPlaceRecycleAdapter
+        mPlaceRecyclerAdapter = PlaceRecyclerAdapter(mContext, mPlaceList)
+        binding.myPlaceRecyclerView.adapter = mPlaceRecyclerAdapter
         binding.myPlaceRecyclerView.layoutManager = LinearLayoutManager(mContext)
-//sㄴ
     }
-    fun getMyPlaceListFromServer(){
+
+    fun getMyPlaceListFromServer() {
         apiList.getRequestMyPlace().enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-                if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     val br = response.body()!!
+
                     mPlaceList.clear()
                     mPlaceList.addAll(br.data.places)
 
-                    mPlaceRecycleAdapter.notifyDataSetChanged()
+                    mPlaceRecyclerAdapter.notifyDataSetChanged()
                 }
             }
 

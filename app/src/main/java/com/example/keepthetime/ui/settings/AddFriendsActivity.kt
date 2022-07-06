@@ -16,8 +16,8 @@ import retrofit2.Response
 
 class AddFriendsActivity : BaseActivity() {
 
-    lateinit var binding: ActivityAddFriendsBinding
-    lateinit var mFriendAdapter: MyFriendsRecyclerAdapter
+    lateinit var binding : ActivityAddFriendsBinding
+    lateinit var mFriendAdapter : MyFriendsRecyclerAdapter
 
     var mFriendList = ArrayList<UserData>()
 
@@ -33,14 +33,14 @@ class AddFriendsActivity : BaseActivity() {
 //        2. 서버 검색한 친구 목록 받아오기
             val inputNick = binding.searchEdt.text.toString()
 
-//        이 글자가 2글자 이상?인지 확인하는 로직
+//            이 글자가 2글자 이상이냐? > 통과
             if (inputNick.length < 2) {
-                Toast.makeText(mContext, "2자 이상 입력 바람", Toast.LENGTH_SHORT).show()
+                Toast.makeText(mContext, "검색어는 2자 이상 작성해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
 //            서버에 실제로 검색어로 검색
-            apiList.getRequestSearchUser(inputNick).enqueue(object : Callback<BasicResponse> {
+            apiList.getRequestSearchUser(inputNick).enqueue(object : Callback<BasicResponse>{
                 override fun onResponse(
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
@@ -48,18 +48,10 @@ class AddFriendsActivity : BaseActivity() {
                     if (response.isSuccessful) {
                         val br = response.body()!!
 
-//                        어댑터의 아이템들을모두 삭제한 두;ㅣ
-//                        mFriendAdapter.notifyItemRangeInserted(0, mFriendList.size)
-
 //                        리스트를 전면 삭제하고
                         mFriendList.clear()
-
-//                        새로운( 서버에서 내려온) 리스트로 다시 덮어주고
+//                        새로운 (서버에서 내려준) 리스트로 다시 덮어주고
                         mFriendList.addAll(br.data.users)
-
-//                        어댑터의 아이템이 새로 들어왔음을 통보
-//                        mFriendAdapter.notifyItemRangeInserted(0, mFriendList.size)
-
 //                        어댑터에 리스트가 바뀌었다는 사실 통보
 //                        RecyclerView의 모든 뷰를 삭제하고 다시 뷰를 생성 비효율적인 코드
                         mFriendAdapter.notifyDataSetChanged()

@@ -15,10 +15,11 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 abstract class BaseActivity : AppCompatActivity() {
-    lateinit var mContext: Context
 
-    lateinit var retrofit: Retrofit
-    lateinit var apiList: APIList
+    lateinit var mContext : Context
+
+    lateinit var retrofit : Retrofit
+    lateinit var apiList : APIList
 
     lateinit var titleTxt : TextView
     lateinit var addBtn : ImageView
@@ -32,13 +33,12 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
         retrofit = ServerApi.getRetrofit(mContext)
-//        retrofit = ServerApi.getRetrofit()
         apiList = retrofit.create(APIList::class.java)
     }
 
     abstract fun setupEvents()
-    abstract fun setValues()
 
+    abstract fun setValues()
 
     fun setCustomActionBar () {
         val defActionBar = supportActionBar!!
@@ -51,5 +51,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
         titleTxt = defActionBar.customView.findViewById(R.id.titleTxt)
         addBtn = defActionBar.customView.findViewById(R.id.addBtn)
+
     }
 }

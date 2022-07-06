@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.keepthetime.R
 import com.example.keepthetime.adapters.MyFriendsRecyclerAdapter
 import com.example.keepthetime.databinding.FragmentRequestFriendsListBinding
@@ -17,9 +18,9 @@ import retrofit2.Response
 
 class RequestFriendsListFragment : BaseFragment() {
 
-    lateinit var binding: FragmentRequestFriendsListBinding
-//    lateinit var binding: FragmentSettingsBinding
-    lateinit var mFriendsAdapter: MyFriendsRecyclerAdapter
+    lateinit var binding : FragmentRequestFriendsListBinding
+
+    lateinit var mFriendsAdapter : MyFriendsRecyclerAdapter
 
     var mFriendList = ArrayList<UserData>()
 
@@ -28,12 +29,10 @@ class RequestFriendsListFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(
-            inflater,
+        binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_request_friends_list,
             container,
-            false
-        )
+            false)
         return binding.root
     }
 
@@ -43,18 +42,28 @@ class RequestFriendsListFragment : BaseFragment() {
         setValues()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getRequestedFriendsListFromServer()
+    }
+
     override fun setupEvents() {
 
     }
 
     override fun setValues() {
-
+        mFriendsAdapter = MyFriendsRecyclerAdapter(mContext, mFriendList, "requested")
+        binding.requestFriendsRecyclerView.adapter = mFriendsAdapter
+        binding.requestFriendsRecyclerView.layoutManager = LinearLayoutManager(mContext)
     }
-    fun getRequestedFriendsListFromServer(){
+
+    fun getRequestedFriendsListFromServer() {
         apiList.getRequestMyFriendsList("requested").enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                 if (response.isSuccessful) {
-                    val  br = response.body()!!
+
+                    val br = response.body()!!
+
                     mFriendList.clear()
                     mFriendList.addAll(br.data.friends)
                     mFriendsAdapter.notifyDataSetChanged()
@@ -66,4 +75,5 @@ class RequestFriendsListFragment : BaseFragment() {
             }
         })
     }
+
 }
